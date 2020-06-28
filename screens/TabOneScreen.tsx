@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Button } from "react-native";
+import * as R from "ramda";
 
 import { Text, View } from "../components/Themed";
 import { getRandomInt } from "../util";
@@ -21,6 +22,7 @@ const defaultColours = [
     { name: "blue", code: "#0000ff" },
 ];
 const DEFAULT_BACKGROUND = "#FFFFFF";
+
 const TabOneScreen: React.FC<PlayScreenProps> = ({
     colours = defaultColours,
 }) => {
@@ -32,31 +34,16 @@ const TabOneScreen: React.FC<PlayScreenProps> = ({
         NodeJS.Timeout
     >();
 
-    // const toggleState = (interval: any) => {
-    //     if (state === "ready") {
-    //         setState("playing");
-    //         setInterval(() => {
-    //             console.log(">>> changing colour!");
-    //             setCurrentColour(
-    //                 colours[getRandomInt(colours.length - 1)].code,
-    //             );
-    //         }, 3000);
-    //     }
-    //     setState("ready");
-    //     clearInterval(interval);
-    //     return 0;
-    // };
-
     const play = () => {
         return setInterval(
             () => setCurrentColour(colours[getRandomInt(colours.length)].code),
             1000,
         );
     };
-    const startPlaying = () => {
-        setIntervalToClear(play());
-        setState("playing");
-    };
+    const startPlaying = R.pipe(play, setIntervalToClear, () =>
+        setState("playing"),
+    );
+
     const stopPlaying = () => {
         intervalToClear && clearInterval(intervalToClear);
         setState("ready");
