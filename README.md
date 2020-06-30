@@ -27,4 +27,9 @@ from the root directory. This will run the project in development mode on your p
 
 ## Contributing
 
-@TODO: add this
+-   Take a look at our project kanban board.
+-   Pick an issue you would like to pick up, drag it from 'to do' column into 'in progress'. This should assign that issue to your user and also makes it visible for other contributors so we don't have 2 people working on the same thing
+-   Make a branch off of `master`, write your code, then make a PR to merge your branch into master. Make sure you link your PR to the issue from the kanban board, and the board can automatically track progress of the issue without you having to move it across lanes manually anymore.
+-   Request a review on your new PR from a codeowner
+-   Once your PR has received an approving review, merge the PR into the main branch, et voila
+-   The kanban board should update automatically and move the issue into 'done' column.
