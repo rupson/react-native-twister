@@ -4,32 +4,25 @@ import * as R from "ramda";
 
 import { Text, View } from "../components/Themed";
 import { getRandomInt } from "../util";
-
-type Color = { name: string; code: string };
-
-interface PlayScreenProps {
-    colours: Color[];
-}
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList, TabOneParamList } from "../types";
+import { FlatList } from "react-native-gesture-handler";
+import { AppContext } from "../App";
 
 type State = "playing" | "ready";
 
 const getText = (state: State) =>
     ({ playing: "now playing", ready: "hit the play button to start" }[state]);
 
-const defaultColours = [
-    { name: "red", code: "#ff0000" },
-    { name: "green", code: "#00ff00" },
-    { name: "blue", code: "#0000ff" },
-];
 const DEFAULT_BACKGROUND = "#FFFFFF";
 
-const TabOneScreen: React.FC<PlayScreenProps> = ({
-    colours = defaultColours,
-}) => {
+const TabOneScreen = () => {
     const [state, setState] = React.useState<State>("ready");
     const [currentColour, setCurrentColour] = React.useState<string>(
         DEFAULT_BACKGROUND,
     );
+
+    const { playerList, colours } = React.useContext(AppContext);
     const [intervalToClear, setIntervalToClear] = React.useState<
         NodeJS.Timeout
     >();
@@ -63,6 +56,13 @@ const TabOneScreen: React.FC<PlayScreenProps> = ({
                 style={styles.separator}
                 lightColor="#eee"
                 darkColor="rgba(255,255,255,0.1)"
+            />
+            <Text>Players:</Text>
+            <FlatList
+                data={playerList}
+                renderItem={({ item, index }) => (
+                    <Text key={index}>{item}</Text>
+                )}
             />
         </View>
     );
