@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import React, { SetStateAction, Dispatch } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
@@ -34,9 +35,16 @@ const App = () => {
         return (
             <SafeAreaProvider>
                 <AppContext.Provider
-                    value={{ playerList, colours, setPlayerList, setColours }}
+                    value={{
+                        playerList,
+                        colours,
+                        setPlayerList,
+                        setColours,
+                    }}
                 >
-                    <Navigation colorScheme={colorScheme} />
+                    <PaperProvider theme={DefaultTheme}>
+                        <Navigation colorScheme={colorScheme} />
+                    </PaperProvider>
                 </AppContext.Provider>
                 <StatusBar />
             </SafeAreaProvider>

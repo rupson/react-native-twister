@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
+import { Button } from "react-native-paper";
 import * as R from "ramda";
 
 import { Text, View } from "../components/Themed";
 import { getRandomInt } from "../util";
-import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList, TabOneParamList } from "../types";
 import { FlatList } from "react-native-gesture-handler";
 import { AppContext } from "../App";
 
@@ -48,9 +47,13 @@ const TabOneScreen = () => {
             style={{ ...styles.container, backgroundColor: `${currentColour}` }}
         >
             <Button
-                title={state === "playing" ? "STOP" : "PLAY"}
+                mode={"outlined"}
+                icon={"play-box-outline"}
                 onPress={state === "ready" ? startPlaying : stopPlaying}
-            />
+                accessibilityStates
+            >
+                {state === "playing" ? "STOP" : "PLAY"}
+            </Button>
             <Text style={styles.title}>{getText(state)}</Text>
             <View
                 style={styles.separator}
