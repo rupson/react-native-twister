@@ -8,6 +8,7 @@ type Color = { name: string; code: string };
 
 interface PlayScreenProps {
     colours: Color[];
+    players: string[];
 }
 
 type State = "playing" | "ready";
@@ -20,17 +21,29 @@ const defaultColours = [
     { name: "green", code: "#00ff00" },
     { name: "blue", code: "#0000ff" },
 ];
+
+const defaultPlayers = [
+    "a",
+    "b",
+    "c",
+];
+
 const DEFAULT_BACKGROUND = "#FFFFFF";
 const TabOneScreen: React.FC<PlayScreenProps> = ({
     colours = defaultColours,
+    players = defaultPlayers,
 }) => {
     const [state, setState] = React.useState<State>("ready");
     const [currentColour, setCurrentColour] = React.useState<string>(
         DEFAULT_BACKGROUND,
     );
+    const [currentPlayer, setCurrentPlayer] = React.useState<string>(
+        players[0],
+    );
     const [intervalToClear, setIntervalToClear] = React.useState<
         NodeJS.Timeout
     >();
+    let playerIndex = 0;
 
     // const toggleState = (interval: any) => {
     //     if (state === "ready") {
@@ -49,7 +62,12 @@ const TabOneScreen: React.FC<PlayScreenProps> = ({
 
     const play = () => {
         return setInterval(
-            () => setCurrentColour(colours[getRandomInt(colours.length)].code),
+            () => {
+                setCurrentColour(colours[getRandomInt(colours.length)].code);
+                setCurrentPlayer(players[playerIndex]);
+                if (playerIndex >= players.length - 1){ playerIndex = 0; }
+                else{ playerIndex++; }
+            },
             1000,
         );
     };
@@ -61,12 +79,19 @@ const TabOneScreen: React.FC<PlayScreenProps> = ({
         intervalToClear && clearInterval(intervalToClear);
         setState("ready");
         setCurrentColour(DEFAULT_BACKGROUND);
+        setCurrentPlayer(players[0]);
     };
 
     return (
         <View
             style={{ ...styles.container, backgroundColor: `${currentColour}` }}
         >
+            <Text style={styles.title}>Player : {currentPlayer}</Text>
+            <View
+                style={styles.separator}
+                lightColor="#eee"
+                darkColor="rgba(255,255,255,0.1)"
+            />
             <Button
                 title={state === "playing" ? "STOP" : "PLAY"}
                 onPress={state === "ready" ? startPlaying : stopPlaying}
