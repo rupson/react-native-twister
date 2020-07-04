@@ -1,24 +1,54 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { SetStateAction, Dispatch } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
+import { Colour } from "./types";
+import defaultAppState from "./config/defaultAppState";
 
-export default function App() {
+interface AppContextType {
+    playerList: string[];
+    setPlayerList?: Dispatch<SetStateAction<string[]>>;
+    colours: Colour[];
+    setColours?: Dispatch<SetStateAction<Colour[]>>;
+}
+
+export const AppContext = React.createContext<AppContextType>(defaultAppState);
+
+const App = () => {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
+    const [playerList, setPlayerList] = React.useState<string[]>(
+        defaultAppState.playerList,
+    );
+    const [colours, setColours] = React.useState<Colour[]>(
+        defaultAppState.colours,
+    );
 
     if (!isLoadingComplete) {
         return null;
     } else {
         return (
             <SafeAreaProvider>
-                <Navigation colorScheme={colorScheme} />
+                <AppContext.Provider
+                    value={{
+                        playerList,
+                        colours,
+                        setPlayerList,
+                        setColours,
+                    }}
+                >
+                    <PaperProvider theme={DefaultTheme}>
+                        <Navigation colorScheme={colorScheme} />
+                    </PaperProvider>
+                </AppContext.Provider>
                 <StatusBar />
             </SafeAreaProvider>
         );
     }
-}
+};
+export default App;
