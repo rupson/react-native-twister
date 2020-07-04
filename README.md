@@ -25,7 +25,7 @@ yarn android
 
 from the root directory. This will run the project in development mode on your phone, with hot reloading for your changes.
 
-## Contributing
+## Rob rox sox
 
 -   Take a look at our project kanban board.
 -   Pick an issue you would like to pick up, drag it from 'to do' column into 'in progress'. This should assign that issue to your user and also makes it visible for other contributors so we don't have 2 people working on the same thing
