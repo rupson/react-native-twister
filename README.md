@@ -2,6 +2,9 @@
 
 fucking about with react native.
 
+## Useful
+ - using react-native-paper for a component library. [Docs here!](https://callstack.github.io/react-native-paper/)
+
 ## Local development
 
 ### Dependencies
