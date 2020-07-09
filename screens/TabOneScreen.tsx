@@ -16,9 +16,9 @@ const getText = (state: State) =>
 const DEFAULT_BACKGROUND = "#FFFFFF";
 
 const TabOneScreen = () => {
-  const { playerList, colours } = React.useContext(AppContext);
+  const { playerList, holdList } = React.useContext(AppContext);
   const [state, setState] = React.useState<State>("ready");
-  const [currentColour, setCurrentColour] = React.useState<string>(
+  const [currentHold, setCurrentHold] = React.useState<string>(
     DEFAULT_BACKGROUND
   );
   const [currentPlayerIndex, setCurrentPlayer] = React.useState<number>(0);
@@ -28,7 +28,7 @@ const TabOneScreen = () => {
 
   const play = () => {
     return setInterval(() => {
-      setCurrentColour(colours[getRandomInt(colours.length)].code);
+      setCurrentHold(holdList[getRandomInt(holdList.length)].colour);
       setCurrentPlayer((currentPlayerIndex) =>
         currentPlayerIndex < playerList.length - 1 ? currentPlayerIndex + 1 : 0
       );
@@ -41,16 +41,16 @@ const TabOneScreen = () => {
   const stopPlaying = () => {
     intervalToClear && clearInterval(intervalToClear);
     setState("ready");
-    setCurrentColour(DEFAULT_BACKGROUND);
+    setCurrentHold(DEFAULT_BACKGROUND);
   };
 
   return (
-    <View style={{ ...styles.container, backgroundColor: `${currentColour}` }}>
+    <View style={{ ...styles.container, backgroundColor: `${currentHold}` }}>
       <Text style={styles.title}>Player : {playerList[currentPlayerIndex]}</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+        darkColor="rgba(255,255,255,0.1)" 
       />
       <Button
         mode={"outlined"}

@@ -1,15 +1,45 @@
 import React from "react";
-import { List } from "react-native-paper";
+import { List, IconButton } from "react-native-paper";
+import { View } from "./Themed";
 
 interface PlayerListItemProps {
     name: string;
     background: string;
+    index: number;
+    removeFromList: (value: any) => any;
 }
 
-const Item: React.FC<PlayerListItemProps> = ({ name, background }) => (
+const Item: React.FC<PlayerListItemProps> = ({
+    name,
+    background,
+    index,
+    removeFromList,
+}) => (
     <List.Item
         title={name}
-        style={{ backgroundColor: background }}
+        
+        right={() => (
+            <>
+                <View
+                    style={{
+                        width: '45%',
+                        backgroundColor: background
+                    }}
+                />
+
+                <IconButton
+                    icon={'playlist-edit'}
+                    accessibilityStates
+                />
+
+                <IconButton
+                    icon={'minus-circle-outline'}
+                    onPress={() => removeFromList(index)}
+                    accessibilityStates
+                />
+            </>
+        )}
+
         accessibilityStates
     />
 );

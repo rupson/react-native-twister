@@ -7,14 +7,14 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
-import { Colour } from "./types";
+import { Hold } from "./types";
 import defaultAppState from "./config/defaultAppState";
 
 interface AppContextType {
     playerList: string[];
     setPlayerList?: Dispatch<SetStateAction<string[]>>;
-    colours: Colour[];
-    setColours?: Dispatch<SetStateAction<Colour[]>>;
+    holdList: Hold[];
+    setHoldList?: Dispatch<SetStateAction<Hold[]>>;
 }
 
 export const AppContext = React.createContext<AppContextType>(defaultAppState);
@@ -25,8 +25,8 @@ const App = () => {
     const [playerList, setPlayerList] = React.useState<string[]>(
         defaultAppState.playerList,
     );
-    const [colours, setColours] = React.useState<Colour[]>(
-        defaultAppState.colours,
+    const [holdList, setHoldList] = React.useState<Hold[]>(
+        defaultAppState.holdList,
     );
 
     if (!isLoadingComplete) {
@@ -37,9 +37,9 @@ const App = () => {
                 <AppContext.Provider
                     value={{
                         playerList,
-                        colours,
+                        holdList,
                         setPlayerList,
-                        setColours,
+                        setHoldList,
                     }}
                 >
                     <PaperProvider theme={DefaultTheme}>

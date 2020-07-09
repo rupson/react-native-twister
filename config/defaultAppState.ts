@@ -1,9 +1,9 @@
-const defaultColours = [
-    { name: "red", code: "#ff0000" },
-    { name: "green", code: "#00ff00" },
-    { name: "blue", code: "#0000ff" },
+const defaultHolds = [
+    { name: "red", colour: "#ff0000" },
+    { name: "green", colour: "#00ff00" },
+    { name: "blue", colour: "#0000ff" },
 ];
 
 const defaultPlayerList: string[] = [];
 
-export default { playerList: defaultPlayerList, colours: defaultColours };
+export default { playerList: defaultPlayerList, holdList: defaultHolds };
