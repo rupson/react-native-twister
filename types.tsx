@@ -7,7 +7,7 @@ export type BottomTabParamList = {
     Play: undefined;
     Setup: undefined;
 };
-export type Colour = { name: string; code: string };
+export type Hold = { name: string; colour: string };
 
 export type TabOneParamList = {
     TabOneScreen: undefined;

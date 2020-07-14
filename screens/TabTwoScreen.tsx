@@ -7,9 +7,11 @@ import AddListItem from '../components/AddListItem';
 import { AppContext } from '../App';
 
 const TabTwoScreen = () => {
-    const { playerList, setPlayerList, colours } = React.useContext(AppContext);
+    const { playerList, setPlayerList, holdList, setHoldList } = React.useContext(AppContext);
     if (!setPlayerList)
         throw new Error('no player list state action in context');
+    if (!setHoldList)
+    throw new Error('no player list state action in context');
 
     const addToPlayerList = (value: string) =>
         setPlayerList(playerList.concat([value]));
@@ -23,6 +25,9 @@ const TabTwoScreen = () => {
                 index === key ? newValue : value,
             ),
         );
+
+    const removeFromHoldList = (key: number) =>
+        setHoldList(holdList.filter((_, index) => key !== index));
 
     return (
         <>
@@ -58,11 +63,13 @@ const TabTwoScreen = () => {
                     </Text>
                 }
             >
-                {colours.map((colour, index) => (
+                {holdList.map((hold, index) => (
                     <ColourListItem
-                        name={colour.name}
-                        background={colour.code}
+                        name={hold.name}
+                        background={hold.colour}
+                        index={index}
                         key={index}
+                        removeFromList={removeFromHoldList}
                     />
                 ))}
             </List.Accordion>
