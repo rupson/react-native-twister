@@ -5,19 +5,22 @@ import PlayerListItem from '../components/PlayerListItem';
 import ColourListItem from '../components/ColourListItem';
 import AddListItem from '../components/AddListItem';
 import { AppContext } from '../App';
+import { removeFromGenericList } from '../util';
+import { Hold } from '../types';
 
 const TabTwoScreen = () => {
-    const { playerList, setPlayerList, holdList, setHoldList } = React.useContext(AppContext);
-    if (!setPlayerList)
-        throw new Error('no player list state action in context');
-    if (!setHoldList)
-    throw new Error('no player list state action in context');
+    const {
+        playerList,
+        setPlayerList,
+        holdList,
+        setHoldList,
+    } = React.useContext(AppContext);
+
+    if (!setPlayerList || !setHoldList)
+        throw new Error('required state action(s) not provided in context');
 
     const addToPlayerList = (value: string) =>
         setPlayerList(playerList.concat([value]));
-
-    const removeFromPlayerList = (key: number) =>
-        setPlayerList(playerList.filter((_, index) => key !== index));
 
     const updateValueInPlayerList = (key: number, newValue: string) =>
         setPlayerList(
@@ -25,9 +28,6 @@ const TabTwoScreen = () => {
                 index === key ? newValue : value,
             ),
         );
-
-    const removeFromHoldList = (key: number) =>
-        setHoldList(holdList.filter((_, index) => key !== index));
 
     return (
         <>
@@ -47,7 +47,10 @@ const TabTwoScreen = () => {
                         name={player}
                         key={index}
                         index={index}
-                        removeFromList={removeFromPlayerList}
+                        removeFromList={removeFromGenericList<string>(
+                            setPlayerList,
+                            playerList,
+                        )}
                         editValue={updateValueInPlayerList}
                     />
                 ))}
@@ -69,7 +72,10 @@ const TabTwoScreen = () => {
                         background={hold.colour}
                         index={index}
                         key={index}
-                        removeFromList={removeFromHoldList}
+                        removeFromList={removeFromGenericList<Hold>(
+                            setHoldList,
+                            holdList,
+                        )}
                     />
                 ))}
             </List.Accordion>
