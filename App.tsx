@@ -1,14 +1,14 @@
-import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import React, { SetStateAction, Dispatch } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
-
-import useCachedResources from "./hooks/useCachedResources";
-import useColorScheme from "./hooks/useColorScheme";
-import Navigation from "./navigation";
-import { Hold } from "./types";
-import defaultAppState from "./config/defaultAppState";
+import 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+import React, { SetStateAction, Dispatch } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
+import AppTheme from './Theme';
+import useCachedResources from './hooks/useCachedResources';
+import useColorScheme from './hooks/useColorScheme';
+import Navigation from './navigation';
+import { Hold } from './types';
+import defaultAppState from './config/defaultAppState';
 
 interface AppContextType {
     playerList: string[];
@@ -42,7 +42,7 @@ const App = () => {
                         setHoldList,
                     }}
                 >
-                    <PaperProvider theme={DefaultTheme}>
+                    <PaperProvider theme={AppTheme}>
                         <Navigation colorScheme={colorScheme} />
                     </PaperProvider>
                 </AppContext.Provider>
