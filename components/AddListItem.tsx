@@ -16,11 +16,8 @@ const AddListItem: React.FC<AddListItemProps> = ({ type, addFunction }) => {
             onPress={() => setAdding(true)}
             right={() => <List.Icon icon={'plus'} />}
             style={{
-                borderBottomWidth: 1,
-                borderBottomColor: '#e5e5e5',
-                backgroundColor: '#ececec',
+                borderBottomWidth: 3,
             }}
-            accessibilityStates
         />
     ) : (
         <TextInput
@@ -31,7 +28,6 @@ const AddListItem: React.FC<AddListItemProps> = ({ type, addFunction }) => {
             onSubmitEditing={({ nativeEvent: { text } }) => {
                 addFunction(text);
             }}
-            accessibilityStates
         />
     );
 };
