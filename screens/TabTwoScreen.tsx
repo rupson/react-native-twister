@@ -32,15 +32,7 @@ const TabTwoScreen = () => {
     return (
         <>
             <List.Accordion
-                title={
-                    <Text
-                        style={{ fontWeight: 'bold', color: 'black' }}
-                        accessibilityStates
-                    >
-                        {'Players'}
-                    </Text>
-                }
-                style={{ borderBottomWidth: 1, borderBottomColor: '#e5e5e5' }}
+                title={<Text style={{ fontWeight: 'bold' }}>{'Players'}</Text>}
             >
                 {playerList.map((player, index) => (
                     <PlayerListItem
@@ -57,14 +49,7 @@ const TabTwoScreen = () => {
                 <AddListItem type={'player'} addFunction={addToPlayerList} />
             </List.Accordion>
             <List.Accordion
-                title={
-                    <Text
-                        style={{ fontWeight: 'bold', color: 'black' }}
-                        accessibilityStates
-                    >
-                        {'Holds'}
-                    </Text>
-                }
+                title={<Text style={{ fontWeight: 'bold' }}>{'Holds'}</Text>}
             >
                 {holdList.map((hold, index) => (
                     <ColourListItem

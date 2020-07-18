@@ -1,6 +1,5 @@
-import React from "react";
-import { List, IconButton } from "react-native-paper";
-import { View } from "./Themed";
+import React from 'react';
+import { List, IconButton, Divider, Surface } from 'react-native-paper';
 
 interface PlayerListItemProps {
     name: string;
@@ -17,30 +16,25 @@ const Item: React.FC<PlayerListItemProps> = ({
 }) => (
     <List.Item
         title={name}
-        
         right={() => (
             <>
-                <View
+                <Surface
                     style={{
                         width: '45%',
-                        backgroundColor: background
+                        backgroundColor: background,
                     }}
-                />
+                >
+                    <Divider />
+                </Surface>
 
-                <IconButton
-                    icon={'playlist-edit'}
-                    accessibilityStates
-                />
+                <IconButton icon={'playlist-edit'} />
 
                 <IconButton
                     icon={'minus-circle-outline'}
                     onPress={() => removeFromList(index)}
-                    accessibilityStates
                 />
             </>
         )}
-
-        accessibilityStates
     />
 );
 

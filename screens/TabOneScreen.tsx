@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Surface, Divider, Text } from 'react-native-paper';
 import * as R from 'ramda';
 
-import { Text, View } from '../components/Themed';
 import { getRandomInt } from '../util';
 import { FlatList } from 'react-native-gesture-handler';
 import { AppContext } from '../App';
@@ -13,7 +11,7 @@ type State = 'playing' | 'ready';
 const getText = (state: State) =>
     ({ playing: 'now playing', ready: 'hit the play button to start' }[state]);
 
-const DEFAULT_BACKGROUND = '#FFFFFF';
+const DEFAULT_BACKGROUND = '#FF0000';
 
 const TabOneScreen = () => {
     const { playerList, holdList } = React.useContext(AppContext);
@@ -47,57 +45,32 @@ const TabOneScreen = () => {
     };
 
     return (
-        <></>
-        // <View
-        //     style={{ ...styles.container, backgroundColor: `${currentHold}` }}
-        // >
-        //     <Text style={styles.title}>
-        //         Player : {playerList[currentPlayerIndex]}
-        //     </Text>
-        //     <View
-        //         style={styles.separator}
-        //         lightColor='#eee'
-        //         darkColor='rgba(255,255,255,0.1)'
-        //     />
-        //     <Button
-        //         mode={'outlined'}
-        //         icon={'play-box-outline'}
-        //         onPress={state === 'ready' ? startPlaying : stopPlaying}
-        //     >
-        //         {state === 'playing' ? 'STOP' : 'PLAY'}
-        //     </Button>
-        //     <Text style={styles.title}>{getText(state)}</Text>
-        //     <View
-        //         style={styles.separator}
-        //         lightColor='#eee'
-        //         darkColor='rgba(255,255,255,0.1)'
-        //     />
-        //     <Text>Players:</Text>
-        //     <FlatList
-        //         data={playerList}
-        //         renderItem={({ item, index }) => (
-        //             <Text key={index}>{item}</Text>
-        //         )}
-        //     />
-        // </View>
+        <>
+            <Text>Player : {playerList[currentPlayerIndex]}</Text>
+            <Button
+                icon={'play-box-outline'}
+                onPress={state === 'ready' ? startPlaying : stopPlaying}
+            >
+                {state === 'playing' ? 'STOP' : 'PLAY'}
+            </Button>
+            <Surface
+                style={{
+                    height: '20%',
+                    backgroundColor: `${currentHold}`,
+                }}
+            >
+                <Divider />
+            </Surface>
+            <Text>{getText(state)}</Text>
+            <Text>Players:</Text>
+            <FlatList
+                data={playerList}
+                renderItem={({ item, index }) => (
+                    <Text key={index}>{item}</Text>
+                )}
+            />
+        </>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-});
 
 export default TabOneScreen;

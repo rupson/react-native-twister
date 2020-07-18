@@ -4,7 +4,7 @@ import { List, IconButton, TextInput } from 'react-native-paper';
 interface PlayerListItemProps {
     name: string;
     index: number;
-    removeFromList: (value: any) => any;
+    removeFromList: (value: number) => void;
     editValue: (index: number, newValue: string) => any;
 }
 
@@ -21,7 +21,6 @@ const Item: React.FC<PlayerListItemProps> = ({
             title={name}
             style={{
                 width: '100%',
-                borderBottomColor: '#e5e5e5',
                 borderBottomWidth: 1,
             }}
             right={() => (
@@ -29,17 +28,14 @@ const Item: React.FC<PlayerListItemProps> = ({
                     <IconButton
                         icon={'playlist-edit'}
                         onPress={() => setEditing(true)}
-                        accessibilityStates
                     />
 
                     <IconButton
                         icon={'minus-circle-outline'}
                         onPress={() => removeFromList(index)}
-                        accessibilityStates
                     />
                 </>
             )}
-            accessibilityStates
         />
     ) : (
         <TextInput
@@ -51,7 +47,6 @@ const Item: React.FC<PlayerListItemProps> = ({
             onSubmitEditing={({ nativeEvent: { text } }) => {
                 editValue(index, text);
             }}
-            accessibilityStates
         />
     );
 };
