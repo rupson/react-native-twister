@@ -14,8 +14,8 @@ const BaseTheme = {
     dark: false,
     colors: {
         background: colours.lavenderBlue,
-        primary: colours.lavenderBlue,
-        text: colours.lavenderBlue,
+        primary: colours.gunmetal,
+        text: colours.gunmetal,
     },
 };
 
