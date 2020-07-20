@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Text } from 'react-native-paper';
+import { List, Title } from 'react-native-paper';
 
 import PlayerListItem from '../components/PlayerListItem';
 import ColourListItem from '../components/ColourListItem';
@@ -7,6 +7,8 @@ import AddListItem from '../components/AddListItem';
 import { AppContext } from '../App';
 import { removeFromGenericList } from '../util';
 import { Hold } from '../types';
+import { Box } from '../components/Box';
+import { colours } from '../Theme';
 
 const TabTwoScreen = () => {
     const {
@@ -30,9 +32,14 @@ const TabTwoScreen = () => {
         );
 
     return (
-        <>
+        <Box flex={1} justifyContent={'flex-start'}>
             <List.Accordion
-                title={<Text style={{ fontWeight: 'bold' }}>{'Players'}</Text>}
+                title={<Title>{'Players'}</Title>}
+                style={{
+                    borderBottomColor: colours.spaceCadet,
+                    borderBottomWidth: 1,
+                    backgroundColor: colours.frenchLilac,
+                }}
             >
                 {playerList.map((player, index) => (
                     <PlayerListItem
@@ -49,12 +56,17 @@ const TabTwoScreen = () => {
                 <AddListItem type={'player'} addFunction={addToPlayerList} />
             </List.Accordion>
             <List.Accordion
-                title={<Text style={{ fontWeight: 'bold' }}>{'Holds'}</Text>}
+                title={<Title>{'Holds'}</Title>}
+                style={{
+                    borderBottomColor: colours.spaceCadet,
+                    borderBottomWidth: 1,
+                    backgroundColor: colours.frenchLilac,
+                }}
             >
                 {holdList.map((hold, index) => (
                     <ColourListItem
                         name={hold.name}
-                        background={hold.colour}
+                        colour={hold.colour}
                         index={index}
                         key={index}
                         removeFromList={removeFromGenericList<Hold>(
@@ -64,7 +76,7 @@ const TabTwoScreen = () => {
                     />
                 ))}
             </List.Accordion>
-        </>
+        </Box>
     );
 };
 

@@ -1,16 +1,24 @@
 import React from 'react';
-import { List, IconButton, Divider, Surface } from 'react-native-paper';
+import { List, IconButton } from 'react-native-paper';
+import { View, ViewStyle } from 'react-native';
+import { colours } from '../Theme';
+
+const commonStyles: Partial<ViewStyle> = {
+    backgroundColor: colours.lavenderBlue,
+    borderBottomColor: colours.gunmetal,
+    borderBottomWidth: 1,
+};
 
 interface PlayerListItemProps {
     name: string;
-    background: string;
+    colour: string;
     index: number;
     removeFromList: (value: any) => any;
 }
 
 const Item: React.FC<PlayerListItemProps> = ({
     name,
-    background,
+    colour,
     index,
     removeFromList,
 }) => (
@@ -18,14 +26,12 @@ const Item: React.FC<PlayerListItemProps> = ({
         title={name}
         right={() => (
             <>
-                <Surface
+                <View
                     style={{
                         width: '45%',
-                        backgroundColor: background,
+                        backgroundColor: colour,
                     }}
-                >
-                    <Divider />
-                </Surface>
+                ></View>
 
                 <IconButton icon={'playlist-edit'} />
 
@@ -35,6 +41,7 @@ const Item: React.FC<PlayerListItemProps> = ({
                 />
             </>
         )}
+        style={{ ...commonStyles }}
     />
 );
 

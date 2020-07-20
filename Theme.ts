@@ -40,7 +40,7 @@ const paperTheme: PaperTheme = {
         notification: colours.lavenderBlue,
         onBackground: colours.lavenderBlue,
         onSurface: colours.lavenderBlue,
-        placeholder: colours.lavenderBlue,
+        placeholder: colours.platinum,
         surface: colours.lavenderBlue,
     },
 };

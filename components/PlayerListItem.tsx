@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, IconButton, TextInput } from 'react-native-paper';
+import { colours } from '../Theme';
 
 interface PlayerListItemProps {
     name: string;
@@ -21,7 +22,9 @@ const Item: React.FC<PlayerListItemProps> = ({
             title={name}
             style={{
                 width: '100%',
+                backgroundColor: colours.lavenderBlue,
                 borderBottomWidth: 1,
+                borderBottomColor: colours.spaceCadet,
             }}
             right={() => (
                 <>
@@ -47,6 +50,7 @@ const Item: React.FC<PlayerListItemProps> = ({
             onSubmitEditing={({ nativeEvent: { text } }) => {
                 editValue(index, text);
             }}
+            autoCorrect={false} //The inputs will be names so autocorrect is untrustworthy
         />
     );
 };

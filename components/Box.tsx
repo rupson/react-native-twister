@@ -1,24 +1,22 @@
-import React from "react";
-import { View } from "react-native";
-import { is } from "ramda";
+import React from 'react';
+import { View, ViewStyle } from 'react-native';
 
-export const Box: React.FC<{
-  flex: number;
-  flexDirection?: "row" | "column";
-}> = ({ children, flex, flexDirection }) => {
-  return (
-    <View
-      style={{
-        justifyContent: "space-between",
-        padding: 5,
-        height: "100%",
-        flex,
-        flexDirection: flexDirection || "column",
-        width: flexDirection === "row" ? "50%" : "100%",
-        alignContent: "center",
-      }}
-    >
-      {children}
-    </View>
-  );
+type BoxProps = Partial<ViewStyle>;
+
+export const Box: React.FC<BoxProps> = ({ children, ...overrideStyles }) => {
+    return (
+        <View
+            style={{
+                justifyContent: 'space-between',
+                paddingTop: 25,
+                height: '100%',
+                flex: 1,
+                flexDirection: 'column',
+                alignContent: 'center',
+                ...overrideStyles,
+            }}
+        >
+            {children}
+        </View>
+    );
 };
