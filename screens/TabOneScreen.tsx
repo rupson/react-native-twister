@@ -12,10 +12,14 @@ import {
 import { Box } from '../components/Box';
 import { View, FlatList } from 'react-native';
 import CurrentHold from '../components/CurrentHold';
+import { RootStackParamList } from '../types';
+import { StackScreenProps } from '@react-navigation/stack';
 
 type State = 'playing' | 'ready';
 
-const TabOneScreen = () => {
+const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
+    navigation,
+}) => {
     const { playerList, holdList, setPlayerList } = React.useContext(
         AppContext,
     );
@@ -32,6 +36,11 @@ const TabOneScreen = () => {
         setState('playing');
         setCurrentHold(holdList[getRandomInt(holdList.length)].colour);
         setCurrentPlayer(0);
+    };
+
+    const stopPlaying = () => {
+        setState('ready');
+        navigation.navigate('Setup');
     };
 
     const nextTurn = () => {
@@ -55,7 +64,7 @@ const TabOneScreen = () => {
                     <SecondaryButton
                         icon={'stop-circle-outline'}
                         text={'Stop game'}
-                        onPress={() => setState('ready')}
+                        onPress={stopPlaying}
                     />
                     <Box flex={1} justifyContent={'space-evenly'}>
                         <View>
