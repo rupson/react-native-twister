@@ -50,7 +50,7 @@ function TabOneNavigator() {
             <TabOneStack.Screen
                 name='TabOneScreen'
                 component={TabOneScreen}
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
             />
         </TabOneStack.Navigator>
     );
@@ -64,7 +64,7 @@ function TabTwoNavigator() {
             <TabTwoStack.Screen
                 name='TabTwoScreen'
                 component={TabTwoScreen}
-                options={{ headerShown: false }}
+                options={{ headerTitle: 'setup' }}
             />
         </TabTwoStack.Navigator>
     );

@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { List, Title } from 'react-native-paper';
+import { List, Title, FAB } from 'react-native-paper';
 
 import PlayerListItem from '../components/PlayerListItem';
 import ColourListItem from '../components/ColourListItem';
 import AddListItem from '../components/AddListItem';
 import { AppContext } from '../App';
 import { removeFromGenericList } from '../util';
-import { Hold } from '../types';
+import { Hold, TabTwoParamList, TabOneParamList } from '../types';
 import { Box } from '../components/Box';
-import { colours } from '../Theme';
+import AppTheme, { colours } from '../Theme';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const TabTwoScreen = () => {
+const TabTwoScreen: React.FC<{
+    navigation: StackNavigationProp<TabOneParamList, 'TabOneScreen'>;
+}> = ({ navigation }) => {
+    const [canStartGame, setCanStartGame] = React.useState<boolean>(false);
+
     const {
         playerList,
         setPlayerList,
@@ -31,51 +36,72 @@ const TabTwoScreen = () => {
             ),
         );
 
+    React.useEffect(() => {
+        setCanStartGame(playerList.length > 1 && holdList.length > 0);
+    }, [playerList, holdList]);
+
     return (
-        <Box flex={1} justifyContent={'flex-start'}>
-            <List.Accordion
-                title={<Title>{'Players'}</Title>}
-                style={{
-                    borderBottomColor: colours.spaceCadet,
-                    borderBottomWidth: 1,
-                    backgroundColor: colours.frenchLilac,
-                }}
-            >
-                {playerList.map((player, index) => (
-                    <PlayerListItem
-                        name={player}
-                        key={index}
-                        index={index}
-                        removeFromList={removeFromGenericList<string>(
-                            setPlayerList,
-                            playerList,
-                        )}
-                        editValue={updateValueInPlayerList}
+        <Box flex={1} justifyContent={'space-between'} paddingTop={0}>
+            <Box flex={1} justifyContent={'flex-start'} paddingTop={0}>
+                <List.Accordion
+                    title={<Title>{'Players'}</Title>}
+                    style={{
+                        borderBottomColor: colours.spaceCadet,
+                        borderBottomWidth: 1,
+                        backgroundColor: colours.frenchLilac,
+                    }}
+                >
+                    {playerList.map((player, index) => (
+                        <PlayerListItem
+                            name={player}
+                            key={index}
+                            index={index}
+                            removeFromList={removeFromGenericList<string>(
+                                setPlayerList,
+                                playerList,
+                            )}
+                            editValue={updateValueInPlayerList}
+                        />
+                    ))}
+                    <AddListItem
+                        type={'player'}
+                        addFunction={addToPlayerList}
                     />
-                ))}
-                <AddListItem type={'player'} addFunction={addToPlayerList} />
-            </List.Accordion>
-            <List.Accordion
-                title={<Title>{'Holds'}</Title>}
-                style={{
-                    borderBottomColor: colours.spaceCadet,
-                    borderBottomWidth: 1,
-                    backgroundColor: colours.frenchLilac,
-                }}
-            >
-                {holdList.map((hold, index) => (
-                    <ColourListItem
-                        name={hold.name}
-                        colour={hold.colour}
-                        index={index}
-                        key={index}
-                        removeFromList={removeFromGenericList<Hold>(
-                            setHoldList,
-                            holdList,
-                        )}
-                    />
-                ))}
-            </List.Accordion>
+                </List.Accordion>
+                <List.Accordion
+                    title={<Title>{'Holds'}</Title>}
+                    style={{
+                        borderBottomColor: colours.spaceCadet,
+                        borderBottomWidth: 1,
+                        backgroundColor: colours.frenchLilac,
+                    }}
+                >
+                    {holdList.map((hold, index) => (
+                        <ColourListItem
+                            name={hold.name}
+                            colour={hold.colour}
+                            index={index}
+                            key={index}
+                            removeFromList={removeFromGenericList<Hold>(
+                                setHoldList,
+                                holdList,
+                            )}
+                        />
+                    ))}
+                </List.Accordion>
+            </Box>
+            {canStartGame && (
+                <FAB
+                    icon={'play'}
+                    style={{
+                        backgroundColor: AppTheme.colors.primary,
+                        alignSelf: 'flex-end',
+                        marginBottom: 10,
+                        marginRight: 10,
+                    }}
+                    onPress={() => navigation.navigate('TabOneScreen')}
+                />
+            )}
         </Box>
     );
 };
