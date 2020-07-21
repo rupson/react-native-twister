@@ -6,14 +6,14 @@ import ColourListItem from '../components/ColourListItem';
 import AddListItem from '../components/AddListItem';
 import { AppContext } from '../App';
 import { removeFromGenericList } from '../util';
-import { Hold, TabTwoParamList, TabOneParamList } from '../types';
-import { Box } from '../components/Box';
+import { Hold, RootStackParamList } from '../types';
+import { Box, BoxWithScrolling } from '../components/Box';
 import AppTheme, { colours } from '../Theme';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 
-const TabTwoScreen: React.FC<{
-    navigation: StackNavigationProp<TabOneParamList, 'TabOneScreen'>;
-}> = ({ navigation }) => {
+const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
+    navigation,
+}) => {
     const [canStartGame, setCanStartGame] = React.useState<boolean>(false);
 
     const {
@@ -42,7 +42,11 @@ const TabTwoScreen: React.FC<{
 
     return (
         <Box flex={1} justifyContent={'space-between'} paddingTop={0}>
-            <Box flex={1} justifyContent={'flex-start'} paddingTop={0}>
+            <BoxWithScrolling
+                flex={1}
+                justifyContent={'flex-start'}
+                paddingTop={0}
+            >
                 <List.Accordion
                     title={<Title>{'Players'}</Title>}
                     style={{
@@ -89,7 +93,7 @@ const TabTwoScreen: React.FC<{
                         />
                     ))}
                 </List.Accordion>
-            </Box>
+            </BoxWithScrolling>
             {canStartGame && (
                 <FAB
                     icon={'play'}
@@ -99,7 +103,7 @@ const TabTwoScreen: React.FC<{
                         marginBottom: 10,
                         marginRight: 10,
                     }}
-                    onPress={() => navigation.navigate('TabOneScreen')}
+                    onPress={() => navigation.navigate('Play')}
                 />
             )}
         </Box>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, TextInput } from 'react-native-paper';
 import { ViewStyle } from 'react-native';
-import { colours } from '../Theme';
+import AppTheme, { colours } from '../Theme';
 
 interface AddListItemProps {
     type: 'hold' | 'player';
@@ -9,8 +9,8 @@ interface AddListItemProps {
 }
 
 const commonStyles: Partial<ViewStyle> = {
-    backgroundColor: colours.platinum,
-    borderBottomColor: colours.gunmetal,
+    backgroundColor: AppTheme.colors.accent,
+    borderBottomColor: AppTheme.colors.border,
     borderBottomWidth: 1,
 };
 
