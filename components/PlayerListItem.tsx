@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, IconButton, TextInput } from 'react-native-paper';
-import { colours } from '../Theme';
+import AppTheme from '../Theme';
 
 interface PlayerListItemProps {
     name: string;
@@ -22,9 +22,9 @@ const Item: React.FC<PlayerListItemProps> = ({
             title={name}
             style={{
                 width: '100%',
-                backgroundColor: colours.lavenderBlue,
+                backgroundColor: AppTheme.colors.background,
                 borderBottomWidth: 1,
-                borderBottomColor: colours.spaceCadet,
+                borderBottomColor: AppTheme.colors.border,
             }}
             right={() => (
                 <>

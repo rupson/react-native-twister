@@ -1,6 +1,6 @@
 import { Button, IconButton } from 'react-native-paper';
 import React from 'react';
-import { colours } from '../Theme';
+import AppTheme from '../Theme';
 import { View } from 'react-native';
 
 interface PrimaryButtonProps {
@@ -26,10 +26,10 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
                 icon={icon}
                 onPress={onPress}
                 style={{
-                    backgroundColor: colours.gunmetal,
+                    backgroundColor: AppTheme.colors.surface,
                     width: 150,
                 }}
-                labelStyle={{ color: colours.platinum }}
+                labelStyle={{ color: AppTheme.colors.accent }}
             >
                 {text}
             </Button>
@@ -48,7 +48,7 @@ export const SecondaryButton: React.FC<ButtonWithIconProps> = ({
 }) => {
     return (
         <View style={{ alignItems: 'flex-start' }}>
-            <Button icon={icon} color={colours.gunmetal} onPress={onPress}>
+            <Button icon={icon} color={AppTheme.colors.text} onPress={onPress}>
                 {text}
             </Button>
         </View>

@@ -8,7 +8,7 @@ import { AppContext } from '../App';
 import { removeFromGenericList } from '../util';
 import { Hold, RootStackParamList } from '../types';
 import { Box, BoxWithScrolling } from '../components/Box';
-import AppTheme, { colours } from '../Theme';
+import AppTheme from '../Theme';
 import { StackScreenProps } from '@react-navigation/stack';
 
 const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
@@ -50,9 +50,9 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
                 <List.Accordion
                     title={<Title>{'Players'}</Title>}
                     style={{
-                        borderBottomColor: colours.spaceCadet,
+                        borderBottomColor: AppTheme.colors.primary,
                         borderBottomWidth: 1,
-                        backgroundColor: colours.frenchLilac,
+                        backgroundColor: AppTheme.colors.backdrop,
                     }}
                 >
                     {playerList.map((player, index) => (
@@ -75,9 +75,9 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
                 <List.Accordion
                     title={<Title>{'Holds'}</Title>}
                     style={{
-                        borderBottomColor: colours.spaceCadet,
+                        borderBottomColor: AppTheme.colors.primary,
                         borderBottomWidth: 1,
-                        backgroundColor: colours.frenchLilac,
+                        backgroundColor: AppTheme.colors.backdrop,
                     }}
                 >
                     {holdList.map((hold, index) => (

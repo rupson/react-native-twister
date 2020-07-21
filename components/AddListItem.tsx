@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, TextInput } from 'react-native-paper';
 import { ViewStyle } from 'react-native';
-import AppTheme, { colours } from '../Theme';
+import AppTheme from '../Theme';
 
 interface AddListItemProps {
     type: 'hold' | 'player';

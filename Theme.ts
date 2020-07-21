@@ -41,7 +41,7 @@ const paperTheme: PaperTheme = {
         onBackground: colours.frenchLilac,
         onSurface: colours.frenchLilac,
         placeholder: colours.platinum,
-        surface: colours.lavenderBlue,
+        surface: colours.gunmetal,
     },
 };
 

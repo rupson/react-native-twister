@@ -1,11 +1,11 @@
 import React from 'react';
 import { List, IconButton } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
-import { colours } from '../Theme';
+import AppTheme from '../Theme';
 
 const commonStyles: Partial<ViewStyle> = {
-    backgroundColor: colours.lavenderBlue,
-    borderBottomColor: colours.gunmetal,
+    backgroundColor: AppTheme.colors.background,
+    borderBottomColor: AppTheme.colors.border,
     borderBottomWidth: 1,
 };
 
