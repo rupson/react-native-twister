@@ -14,7 +14,7 @@ const BaseTheme = {
     dark: false,
     colors: {
         background: colours.lavenderBlue,
-        primary: colours.gunmetal,
+        primary: colours.spaceCadet,
         text: colours.gunmetal,
     },
 };
@@ -24,7 +24,7 @@ export const navigationTheme: NavigationTheme = {
     colors: {
         ...BaseTheme.colors,
         card: colours.lavenderBlue,
-        border: colours.lavenderBlue,
+        border: colours.gunmetal,
     },
 };
 
@@ -33,21 +33,26 @@ const paperTheme: PaperTheme = {
     ...BaseTheme,
     colors: {
         ...BaseTheme.colors,
-        accent: colours.lavenderBlue,
-        backdrop: colours.lavenderBlue,
+        accent: colours.platinum,
+        backdrop: colours.frenchLilac,
         disabled: colours.lavenderBlue,
-        error: colours.lavenderBlue,
-        notification: colours.lavenderBlue,
-        onBackground: colours.lavenderBlue,
-        onSurface: colours.lavenderBlue,
-        placeholder: colours.lavenderBlue,
-        surface: colours.lavenderBlue,
+        error: colours.imperialRed,
+        notification: colours.platinum,
+        onBackground: colours.frenchLilac,
+        onSurface: colours.frenchLilac,
+        placeholder: colours.platinum,
+        surface: colours.gunmetal,
     },
 };
 
 const AppTheme = {
     ...navigationTheme,
     ...paperTheme,
+    colors: {
+        ...navigationTheme.colors,
+        ...paperTheme.colors,
+        ...BaseTheme.colors,
+    },
 };
 
 export default AppTheme;
