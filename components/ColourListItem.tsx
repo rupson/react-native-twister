@@ -1,46 +1,47 @@
-import React from "react";
-import { List, IconButton } from "react-native-paper";
-import { View } from "./Themed";
+import React from 'react';
+import { List, IconButton } from 'react-native-paper';
+import { View, ViewStyle } from 'react-native';
+import AppTheme from '../Theme';
+
+const commonStyles: Partial<ViewStyle> = {
+    backgroundColor: AppTheme.colors.background,
+    borderBottomColor: AppTheme.colors.border,
+    borderBottomWidth: 1,
+};
 
 interface PlayerListItemProps {
     name: string;
-    background: string;
+    colour: string;
     index: number;
     removeFromList: (value: any) => any;
 }
 
 const Item: React.FC<PlayerListItemProps> = ({
     name,
-    background,
+    colour,
     index,
     removeFromList,
 }) => (
     <List.Item
         title={name}
-        
         right={() => (
             <>
                 <View
                     style={{
                         width: '45%',
-                        backgroundColor: background
+                        backgroundColor: colour,
                     }}
-                />
+                ></View>
 
-                <IconButton
-                    icon={'playlist-edit'}
-                    accessibilityStates
-                />
+                <IconButton icon={'playlist-edit'} />
 
                 <IconButton
                     icon={'minus-circle-outline'}
                     onPress={() => removeFromList(index)}
-                    accessibilityStates
                 />
             </>
         )}
-
-        accessibilityStates
+        style={{ ...commonStyles }}
     />
 );
 

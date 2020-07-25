@@ -1,10 +1,11 @@
 import React from 'react';
 import { List, IconButton, TextInput } from 'react-native-paper';
+import AppTheme from '../Theme';
 
 interface PlayerListItemProps {
     name: string;
     index: number;
-    removeFromList: (value: any) => any;
+    removeFromList: (value: number) => void;
     editValue: (index: number, newValue: string) => any;
 }
 
@@ -21,25 +22,23 @@ const Item: React.FC<PlayerListItemProps> = ({
             title={name}
             style={{
                 width: '100%',
-                borderBottomColor: '#e5e5e5',
+                backgroundColor: AppTheme.colors.background,
                 borderBottomWidth: 1,
+                borderBottomColor: AppTheme.colors.border,
             }}
             right={() => (
                 <>
                     <IconButton
                         icon={'playlist-edit'}
                         onPress={() => setEditing(true)}
-                        accessibilityStates
                     />
 
                     <IconButton
                         icon={'minus-circle-outline'}
                         onPress={() => removeFromList(index)}
-                        accessibilityStates
                     />
                 </>
             )}
-            accessibilityStates
         />
     ) : (
         <TextInput
@@ -51,7 +50,7 @@ const Item: React.FC<PlayerListItemProps> = ({
             onSubmitEditing={({ nativeEvent: { text } }) => {
                 editValue(index, text);
             }}
-            accessibilityStates
+            autoCorrect={false} //The inputs will be names so autocorrect is untrustworthy
         />
     );
 };

@@ -1,10 +1,19 @@
 import React from 'react';
 import { List, TextInput } from 'react-native-paper';
+import { ViewStyle } from 'react-native';
+import AppTheme from '../Theme';
 
 interface AddListItemProps {
     type: 'hold' | 'player';
     addFunction: (value: any) => any; //@TODO: remove any types
 }
+
+const commonStyles: Partial<ViewStyle> = {
+    backgroundColor: AppTheme.colors.accent,
+    borderBottomColor: AppTheme.colors.border,
+    borderBottomWidth: 1,
+};
+
 const AddListItem: React.FC<AddListItemProps> = ({ type, addFunction }) => {
     const [adding, setAdding] = React.useState<boolean>(false);
 
@@ -15,12 +24,7 @@ const AddListItem: React.FC<AddListItemProps> = ({ type, addFunction }) => {
             title={`Add new ${type}`}
             onPress={() => setAdding(true)}
             right={() => <List.Icon icon={'plus'} />}
-            style={{
-                borderBottomWidth: 1,
-                borderBottomColor: '#e5e5e5',
-                backgroundColor: '#ececec',
-            }}
-            accessibilityStates
+            style={{ ...commonStyles }}
         />
     ) : (
         <TextInput
@@ -31,7 +35,7 @@ const AddListItem: React.FC<AddListItemProps> = ({ type, addFunction }) => {
             onSubmitEditing={({ nativeEvent: { text } }) => {
                 addFunction(text);
             }}
-            accessibilityStates
+            style={{ ...commonStyles }}
         />
     );
 };
