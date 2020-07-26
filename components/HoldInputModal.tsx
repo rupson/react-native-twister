@@ -16,7 +16,11 @@ interface ModalProps {
 	visible: boolean;
 	index: number;
 	closeModal: () => void;
-	onSubmit: (key: number, newValue: Hold) => void;
+	onSubmit: {
+		updateExisting: (key: number, newValue: Hold) => void;
+		addNew: (value: Hold) => void;
+	};
+	kind: 'add' | 'update';
 }
 
 const HoldInputModal: React.FC<ModalProps> = ({
@@ -26,6 +30,7 @@ const HoldInputModal: React.FC<ModalProps> = ({
 	name,
 	onSubmit,
 	index,
+	kind,
 }) => {
 	const [_name, setName] = React.useState<string>(name);
 	const [_colour, setColour] = React.useState<string>(colour);
@@ -102,8 +107,13 @@ const HoldInputModal: React.FC<ModalProps> = ({
 							<LargeIconButton
 								icon={'check-bold'}
 								onPress={() => {
-									onSubmit(index, { name: _name, colour: _colour });
-									closeModal();
+									kind === 'update'
+										? onSubmit.updateExisting(index, {
+												name: _name,
+												colour: _colour,
+										  })
+										: onSubmit.addNew({ name: _name, colour: _colour }),
+										closeModal();
 								}}
 								color={AppTheme.colors.accent}
 							/>

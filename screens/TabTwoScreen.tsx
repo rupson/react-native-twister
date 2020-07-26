@@ -3,9 +3,10 @@ import { List, Title, FAB } from 'react-native-paper';
 
 import PlayerListItem from '../components/PlayerListItem';
 import ColourListItem from '../components/ColourListItem';
-import AddListItem from '../components/AddListItem';
+import AddPlayer from '../components/AddPlayer';
+import AddHold from '../components/AddHold';
 import { AppContext } from '../App';
-import { removeFromGenericList } from '../util';
+import { removeFromGenericList, updateGenericList } from '../util';
 import { Hold, RootStackParamList } from '../types';
 import { Box, BoxWithScrolling } from '../components/Box';
 import AppTheme from '../Theme';
@@ -26,15 +27,10 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
 	const addToPlayerList = (value: string) =>
 		setPlayerList(playerList.concat([value]));
 
-	const updateValueInPlayerList = (key: number, newValue: string) =>
-		setPlayerList(
-			playerList.map((value, index) => (index === key ? newValue : value)),
-		);
-
-	const updateValueInHoldList = (key: number, newValue: Hold) =>
-		setHoldList(
-			holdList.map((value, index) => (index === key ? newValue : value)),
-		);
+	const submitHoldModal = {
+		updateExisting: updateGenericList<Hold>(setHoldList, holdList),
+		addNew: (value: Hold) => setHoldList(holdList.concat([value])),
+	};
 
 	React.useEffect(() => {
 		setCanStartGame(playerList.length > 1 && holdList.length > 0);
@@ -60,10 +56,10 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
 								setPlayerList,
 								playerList,
 							)}
-							editValue={updateValueInPlayerList}
+							editValue={updateGenericList<string>(setPlayerList, playerList)}
 						/>
 					))}
-					<AddListItem type={'player'} addFunction={addToPlayerList} />
+					<AddPlayer addFunction={addToPlayerList} />
 				</List.Accordion>
 				<List.Accordion
 					title={<Title>{'Holds'}</Title>}
@@ -83,9 +79,11 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
 								setHoldList,
 								holdList,
 							)}
-							updateValue={updateValueInHoldList}
+							// updateValue={updateGenericList<Hold>(setHoldList, holdList)}
+							listFunctions={submitHoldModal}
 						/>
 					))}
+					<AddHold listFunctions={submitHoldModal} />
 				</List.Accordion>
 			</BoxWithScrolling>
 			{canStartGame && (

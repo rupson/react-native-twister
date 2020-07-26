@@ -16,11 +16,14 @@ interface PlayerListItemProps {
 	colour: string;
 	index: number;
 	removeFromList: (value: any) => any;
-	updateValue: (key: number, newValue: Hold) => void;
+	listFunctions: {
+		updateExisting: (key: number, newValue: Hold) => void;
+		addNew: (value: Hold) => void;
+	};
 }
 
 const Item: React.FC<PlayerListItemProps> = (props) => {
-	const { name, colour, index, removeFromList, updateValue } = props;
+	const { name, colour, index, removeFromList, listFunctions } = props;
 
 	const [editing, setEditing] = React.useState<boolean>(false);
 
@@ -52,7 +55,8 @@ const Item: React.FC<PlayerListItemProps> = (props) => {
 			visible={true}
 			closeModal={closeModal}
 			{...props}
-			onSubmit={updateValue}
+			onSubmit={listFunctions}
+			kind={'update'}
 		/>
 	);
 };
