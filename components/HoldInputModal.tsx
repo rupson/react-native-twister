@@ -6,7 +6,7 @@ import { Portal, Modal, TextInput } from 'react-native-paper';
 import { View } from 'react-native';
 import AppTheme from '../Theme';
 import { Box } from './Box';
-import { generateListOfColours, generateListOfColours2 } from '../util';
+import { generateListOfColours } from '../util';
 import { LargeIconButton } from './Buttons';
 import { Hold } from '../types';
 
@@ -90,7 +90,7 @@ const HoldInputModal: React.FC<ModalProps> = ({
 					{showColourPicker ? (
 						<Box>
 							<NativeColorPicker
-								colors={generateListOfColours(900000)}
+								colors={generateListOfColours()}
 								onSelect={(item) => {
 									setColour(item);
 									setShowColourPicker(false);

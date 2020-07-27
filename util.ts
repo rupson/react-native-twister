@@ -24,7 +24,51 @@ export const updateGenericList: UpdateGenericList = (stateAction, list) => (
 export const cloneArray: <T>(originalList: T[]) => T[] = (originalList) =>
 	originalList.map((item) => item);
 
-export const generateListOfColours = (interval = 100000) => {
+/**
+ * @TODO: Something more intelligent.
+ */
+export const generateListOfColours = () => [
+	'#000000',
+	'#000080',
+	'#008000',
+	'#008080',
+	'#800000',
+	'#800080',
+	'#808000',
+	'#C0C0C0',
+	'#808080',
+	'#0000FF',
+	'#00FF00',
+	'#00FFFF',
+	'#FF0000',
+	'#FF00FF',
+	'#FFFF00',
+	'#FFFFFF',
+];
+// [
+// 	'#1abc9c',
+// 	'#2ecc71',
+// 	'#3498db',
+// 	'#9b59b6',
+// 	'#34495e',
+// 	'#16a085',
+// 	'#27ae60',
+// 	'#2980b9',
+// 	'#8e44ad',
+// 	'#2c3e50',
+// 	'#f1c40f',
+// 	'#e67e22',
+// 	'#e74c3c',
+// 	'#ecf0f1',
+// 	'#95a5a6',
+// 	'#f39c12',
+// 	'#d35400',
+// 	'#c0392b',
+// 	'#bdc3c7',
+// 	'#7f8c8d',
+// ];
+
+export const generateListOfColours1 = (interval = 100000) => {
 	const result: string[] = [
 		...Array(Math.floor(Math.pow(256, 3) / interval)),
 	].map((_, index) => {

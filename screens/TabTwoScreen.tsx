@@ -79,7 +79,6 @@ const TabTwoScreen: React.FC<StackScreenProps<RootStackParamList, 'Setup'>> = ({
 								setHoldList,
 								holdList,
 							)}
-							// updateValue={updateGenericList<Hold>(setHoldList, holdList)}
 							listFunctions={submitHoldModal}
 						/>
 					))}

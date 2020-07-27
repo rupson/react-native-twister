@@ -1,8 +1,6 @@
-const defaultHolds = [
-    { name: "red", colour: "#ff0000" },
-    { name: "green", colour: "#00ff00" },
-    { name: "blue", colour: "#0000ff" },
-];
+import { Hold } from '../types';
+
+const defaultHolds: Hold[] = [];
 
 const defaultPlayerList: string[] = [];
 
