@@ -23,10 +23,10 @@ const App = () => {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
     const [playerList, setPlayerList] = React.useState<string[]>(
-        defaultAppState.playerList,
+        defaultAppState.playerList
     );
     const [holdList, setHoldList] = React.useState<Hold[]>(
-        defaultAppState.holdList,
+        defaultAppState.holdList
     );
 
     if (!isLoadingComplete) {
