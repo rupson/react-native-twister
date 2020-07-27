@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Headline, List } from 'react-native-paper';
+import { Text, Headline, List, Title } from 'react-native-paper';
 import * as R from 'ramda';
 
 import { getRandomInt, removeFromGenericList, cloneArray } from '../util';
@@ -17,6 +17,8 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 type State = 'playing' | 'ready' | 'game_over';
 
+const contacts = [`Left hand`, `Right hand`, `Left foot`, `Right foot`];
+
 const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
     navigation,
 }) => {
@@ -26,10 +28,9 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
      * @TODO: This is a lot of state. Write a reducer.
      */
     const [state, setState] = React.useState<State>('ready');
-    const [currentHold, setCurrentHold] = React.useState<string>(
-        holdList[0].colour
-    );
+    const [currentHold, setCurrentHold] = React.useState<number>(0);
     const [currentPlayerIndex, setCurrentPlayer] = React.useState<number>(0);
+    const [currentContact, setCurrentContact] = React.useState<number>(0);
     const [activePlayers, setActivePlayers] = React.useState<string[]>(
         cloneArray<string>(playerList)
     );
@@ -53,7 +54,7 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
 
     const startPlaying = () => {
         setState('playing');
-        setCurrentHold(holdList[getRandomInt(holdList.length)].colour);
+        setCurrentHold(getRandomInt(holdList.length));
         setCurrentPlayer(0);
     };
 
@@ -63,7 +64,8 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
     };
 
     const nextTurn = () => {
-        setCurrentHold(holdList[getRandomInt(holdList.length)].colour);
+        setCurrentHold(getRandomInt(holdList.length));
+        setCurrentContact(getRandomInt(contacts.length));
         setCurrentPlayer((currentPlayerIndex) =>
             currentPlayerIndex < activePlayers.length - 1
                 ? currentPlayerIndex + 1
@@ -87,11 +89,32 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
                                 onPress={stopPlaying}
                             />
                             <Box flex={1} justifyContent={'space-evenly'}>
+                                <Headline
+                                    style={{
+                                        textAlign: 'center',
+                                        textDecorationLine: 'underline',
+                                    }}
+                                >
+                                    {`${activePlayers[currentPlayerIndex]}`}
+                                </Headline>
                                 <View>
-                                    <Headline style={{ textAlign: 'center' }}>
-                                        {activePlayers[currentPlayerIndex]}
-                                    </Headline>
-                                    <CurrentHold colour={currentHold} />
+                                    <Title
+                                        style={{
+                                            paddingLeft: 20,
+                                            direction: contacts[
+                                                currentContact
+                                            ].startsWith('Left')
+                                                ? 'ltr'
+                                                : 'rtl',
+                                        }}
+                                    >
+                                        {contacts[currentContact]}
+                                    </Title>
+                                    <View>
+                                        <CurrentHold
+                                            hold={holdList[currentHold]}
+                                        />
+                                    </View>
                                 </View>
                                 <View
                                     style={{
