@@ -19,6 +19,9 @@
         "ios": {
             "supportsTablet": true
         },
+        "android": {
+            "package": "rupson.react_native_twister.rupson.com.github"
+        },
         "web": {
             "favicon": "./assets/images/favicon.png"
         }
