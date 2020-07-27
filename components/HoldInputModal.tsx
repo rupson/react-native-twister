@@ -51,24 +51,19 @@ const HoldInputModal: React.FC<ModalProps> = ({
 					borderRadius: 20,
 				}}
 			>
-				<Box
-					justifyContent={'flex-start'}
-					borderWidth={1}
-					borderColor={'blue'}
-					paddingTop={0}
-				>
+				<Box justifyContent={'flex-start'} paddingTop={0}>
 					<Box
 						flexDirection={'row'}
 						justifyContent={'space-around'}
 						width={'100%'}
 						alignItems={'center'}
-						borderWidth={1}
-						borderColor={'red'}
 						paddingTop={0}
+						marginBottom={0}
 						flex={0.3}
 					>
 						<TextInput
 							label={'Enter name of hold'}
+							selectTextOnFocus={true}
 							mode={'outlined'}
 							value={_name}
 							onChangeText={(text) => setName(text)}
@@ -88,7 +83,7 @@ const HoldInputModal: React.FC<ModalProps> = ({
 						/>
 					</Box>
 					{showColourPicker ? (
-						<Box>
+						<Box paddingTop={0}>
 							<NativeColorPicker
 								colors={generateListOfColours()}
 								onSelect={(item) => {
