@@ -1,12 +1,13 @@
 {
     "expo": {
-        "name": "twister",
-        "slug": "twister",
+        "name": "Twister",
         "version": "1.0.0",
+        "slug": "twister",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "scheme": "myapp",
         "userInterfaceStyle": "automatic",
+        "githubUrl": "https://github.com/rupson/react-native-twister",
         "splash": {
             "image": "./assets/images/splash.png",
             "resizeMode": "contain",
