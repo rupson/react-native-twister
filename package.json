@@ -7,7 +7,7 @@
         "web": "expo start --web",
         "eject": "expo eject",
         "test": "jest --watchAll",
-        "lint:fix": "npx prettier --write ."
+        "lint:fix": "prettier --write ."
     },
     "jest": {
         "preset": "jest-expo"

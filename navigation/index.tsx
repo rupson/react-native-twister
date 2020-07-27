@@ -32,14 +32,14 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
     return (
-        <Stack.Navigator initialRouteName='Setup'>
+        <Stack.Navigator initialRouteName="Setup">
             <Stack.Screen
-                name='Setup'
+                name="Setup"
                 component={TabTwoScreen}
                 options={{ headerTitle: 'setup' }}
             />
             <Stack.Screen
-                name='Play'
+                name="Play"
                 component={TabOneScreen}
                 options={{ headerShown: false }}
             />
