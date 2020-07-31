@@ -33,6 +33,11 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
     const [activePlayers, setActivePlayers] = React.useState<string[]>(
         cloneArray<string>(playerList)
     );
+    const [maxPlayerIndex, setMaxIndex] = React.useState<number>(
+        activePlayers.length - 1
+    );
+    const [turnCounter, setTurnCounter] = React.useState<number>(1);
+    const [turnScores, setTurnScores] = React.useState<string[]>([]);
 
     const makeIndexAdjustment = () => {
         if (currentPlayerIndex >= activePlayers.length) {
@@ -41,7 +46,7 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
     };
 
     const isGameOver = () => {
-        if (activePlayers.length < 2) {
+        if (maxPlayerIndex < 2) {
             setState('game_over');
         }
     };
@@ -64,16 +69,28 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
 
     const nextTurn = () => {
         setCurrentHold(holdList[getRandomInt(holdList.length)].colour);
+        setTurnCounter((turnCounter) =>
+            currentPlayerIndex < maxPlayerIndex ? turnCounter : turnCounter + 1
+        );
         setCurrentPlayer((currentPlayerIndex) =>
-            currentPlayerIndex < activePlayers.length - 1
-                ? currentPlayerIndex + 1
-                : 0
+            currentPlayerIndex < maxPlayerIndex ? currentPlayerIndex + 1 : 0
         );
     };
 
-    const playerOut = R.pipe(
-        removeFromGenericList<string>(setActivePlayers, activePlayers)
-    );
+    const playerOut = (index: number) => {
+        // R.pipe(removeFromGenericList<string>(setActivePlayers, activePlayers))(
+        //     index
+        // );
+        activePlayers.push(activePlayers.splice(index, 1)[0]);
+        setMaxIndex(maxPlayerIndex - 1);
+        isGameOver();
+        setCurrentPlayer(currentPlayerIndex);
+        setTurnScores(turnScores.concat([turnCounter.toString()]));
+    };
+
+    const formatText = (list: any[]) => {
+        return list.reverse().join('\n');
+    };
 
     return (
         <Box flex={1}>
@@ -138,9 +155,15 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
                                 flex={1}
                                 justifyContent={'space-around'}
                                 alignItems={'center'}
+                                alignContent={'center'}
                             >
                                 <Text style={{ fontSize: 40 }}>GAME OVER</Text>
-                                <View>
+                                <View
+                                    style={{
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
                                     <Text
                                         style={{
                                             textDecorationLine: 'underline',
@@ -152,11 +175,57 @@ const TabOneScreen: React.FC<StackScreenProps<RootStackParamList, 'Play'>> = ({
                                     <Text
                                         style={{
                                             fontSize: 30,
-                                            textAlign: 'center',
                                         }}
                                     >
-                                        {activePlayers[0]}
+                                        {activePlayers[0] +
+                                            ' Won on turn ' +
+                                            turnScores[turnScores.length - 1]}
                                     </Text>
+
+                                    <View
+                                        style={{
+                                            height: '10%',
+                                        }}
+                                    />
+
+                                    <Text
+                                        style={{
+                                            textDecorationLine: 'underline',
+                                            fontSize: 20,
+                                        }}
+                                    >
+                                        The Rest
+                                    </Text>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontSize: 15,
+                                            }}
+                                        >
+                                            {formatText(
+                                                activePlayers.filter(
+                                                    (_, index) => index !== 0
+                                                )
+                                            )}
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                fontSize: 15,
+                                            }}
+                                        >
+                                            {formatText(
+                                                turnScores.map(
+                                                    (value) =>
+                                                        '   Lost on round ' +
+                                                        value
+                                                )
+                                            )}
+                                        </Text>
+                                    </View>
                                 </View>
                             </Box>
                         </>
